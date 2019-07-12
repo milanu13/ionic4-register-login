@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+        Log In
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="form-content">
+  <form [formGroup]="validations_form"  (ngSubmit)="onSubmitLogin(validations_form.value)">
+    
+    <ion-item>
+      <ion-label position="floating" color="primary">Email</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.email">
+        <ion-text color="danger" style="display:block;float: none; width: 100%" class="error-message" *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </ion-text>
+      </ng-container>
+    </div>
+    
+    <ion-item>
+      <ion-label position="floating" color="primary">Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.password">
+        <ion-text style="display:block;float:none;width:100%" *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)" class="error-message">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </ion-text>
+      </ng-container>
+    </div>
+
+    <ion-button color="primary" class="submit-btn" expand="full" type="submit" [disabled]="!validations_form.valid">Log In</ion-button>
+  </form>
+</ion-content>

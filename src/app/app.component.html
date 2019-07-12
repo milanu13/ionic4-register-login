@@ -16,6 +16,30 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false" *ngIf="!isLoggedIn">
+            <ion-item (click)="register()">
+              <ion-icon slot="start" name="person-add"></ion-icon>
+              <ion-label> Register </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false" *ngIf="!isLoggedIn">
+            <ion-item (click)="goToLogin()">
+              <ion-icon slot="start" name="log-in"></ion-icon>
+              <ion-label> Log In </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false" *ngIf="isLoggedIn">
+            <ion-item (click)="logout()">
+              <ion-icon slot="start" name="log-out"></ion-icon>
+              <ion-label> Log Out </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          
+
         </ion-list>
       </ion-content>
     </ion-menu>

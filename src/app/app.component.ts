@@ -1,5 +1,6 @@
+import { Router } from '@angular/router';
+import { AuthenticationService } from './services/authentication.service';
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -9,6 +10,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
+
+  public isLoggedIn: boolean;
+
   public appPages = [
     {
       title: 'Home',
@@ -25,7 +29,9 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -34,6 +40,29 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.authenticationService.authenticationState.subscribe(state => {
+        if (state) {
+          this.isLoggedIn = true;
+        } else {
+          this.isLoggedIn = false;
+        }
+      });
+
     });
+    
   }
+
+  register(){
+    this.router.navigate(['register']);
+  }
+
+  goToLogin(){
+    this.router.navigate(['login']);
+  }
+
+  logout(){
+    this.authenticationService.logout();
+  }
+
 }
